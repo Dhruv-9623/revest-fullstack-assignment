@@ -1,232 +1,132 @@
-# Full-Stack Assignment - Saudi Arabia Company
+# Revest Full Stack Assignment
 
-A complete full-stack application with Nest.js microservices backend and Next.js frontend with dynamic form builder.
+This repository contains the implementation of the Full Stack assignment for Revest Solutions.  
+The project includes two backend microservices built with **Nest.js** and a frontend built with **Next.js** and **Material UI**.
 
-## Project Overview
+---
 
-This project consists of:
-
-1. **Backend**: Two independent Nest.js microservices
-   - Product Service (Port 3001)
-   - Order Service (Port 3002)
-
-2. **Frontend**: Next.js application with dynamic form builder (Port 3000)
-
-## Quick Start
-
-### Prerequisites
-
-- Node.js (v18 or higher)
-- npm or yarn
-
-### Backend Setup
-
-1. **Install Product Service dependencies:**
-   ```bash
-   cd backend/product-service
-   npm install
-   ```
-
-2. **Install Order Service dependencies:**
-   ```bash
-   cd backend/order-service
-   npm install
-   ```
-
-3. **Start Product Service:**
-   ```bash
-   cd backend/product-service
-   npm run start:dev
-   ```
-   Service runs on: http://localhost:3001
-
-4. **Start Order Service (in a new terminal):**
-   ```bash
-   cd backend/order-service
-   npm run start:dev
-   ```
-   Service runs on: http://localhost:3002
-
-### Frontend Setup
-
-1. **Install dependencies:**
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-2. **Start development server:**
-   ```bash
-   npm run dev
-   ```
-   Application runs on: http://localhost:3000
-
-## Project Structure
+## 📁 Project Structure
 
 ```
-.
-├── backend/
-│   ├── product-service/    # Product microservice
-│   │   ├── src/
-│   │   │   ├── product/    # Product module
-│   │   │   ├── app.module.ts
-│   │   │   └── main.ts
-│   │   └── package.json
-│   │
-│   ├── order-service/      # Order microservice
-│   │   ├── src/
-│   │   │   ├── order/      # Order module
-│   │   │   ├── app.module.ts
-│   │   │   └── main.ts
-│   │   └── package.json
-│   │
-│   └── README.md           # Backend documentation
-│
-├── frontend/               # Next.js frontend
-│   ├── src/
-│   │   ├── app/           # Next.js app directory
-│   │   ├── components/    # React components
-│   │   ├── types/         # TypeScript types
-│   │   └── data/          # Form schema
-│   ├── package.json
-│   └── README.md          # Frontend documentation
-│
-└── README.md              # This file
+backend/
+  product-service/     → Handles product CRUD
+  order-service/       → Handles order CRUD + integrates with product service
+frontend/              → Dynamic form generated from JSON schema
 ```
 
-## Features
+---
 
-### Backend
+# ⚙️ Backend Setup
 
-- ✅ Two independent Nest.js microservices
-- ✅ Product Service with full CRUD operations
-- ✅ Order Service with full CRUD operations
-- ✅ Order Service communicates with Product Service via HTTP
-- ✅ Automatic price calculation in Order Service
-- ✅ Product validation when creating orders
-- ✅ Orders return full product information
-- ✅ TypeORM with SQLite databases
-- ✅ DTOs for request validation
-- ✅ Error handling
-- ✅ CORS enabled
+There are two independent Nest.js services, each running on separate ports.
 
-### Frontend
+---
 
-- ✅ Next.js 14 with TypeScript
-- ✅ Material UI components
-- ✅ Dynamic form builder from JSON schema
-- ✅ Support for TEXT, LIST (Select), and RADIO fields
-- ✅ Form validation (required, minLength, maxLength)
-- ✅ React Hook Form integration
-- ✅ LocalStorage persistence
-- ✅ Responsive design
-- ✅ Clean component architecture
+## 1. Product Service (Port 3001)
 
-## API Endpoints
-
-### Product Service (http://localhost:3001)
-
-- `POST /products` - Create product
-- `GET /products` - Get all products
-- `GET /products/:id` - Get product by ID
-- `PATCH /products/:id` - Update product
-- `DELETE /products/:id` - Delete product
-
-### Order Service (http://localhost:3002)
-
-- `POST /orders` - Create order (validates product, calculates price)
-- `GET /orders` - Get all orders (with product information)
-- `GET /orders/:id` - Get order by ID (with product information)
-- `PATCH /orders/:id` - Update order
-- `DELETE /orders/:id` - Delete order
-
-## Documentation
-
-- [Backend README](./backend/README.md) - Detailed backend documentation
-- [Frontend README](./frontend/README.md) - Detailed frontend documentation
-
-## Development
-
-### Running All Services
-
-You'll need three terminal windows:
-
-1. **Terminal 1 - Product Service:**
-   ```bash
-   cd backend/product-service && npm run start:dev
-   ```
-
-2. **Terminal 2 - Order Service:**
-   ```bash
-   cd backend/order-service && npm run start:dev
-   ```
-
-3. **Terminal 3 - Frontend:**
-   ```bash
-   cd frontend && npm run dev
-   ```
-
-### Building for Production
-
-**Backend Services:**
-```bash
-# Product Service
+### Run:
+```
 cd backend/product-service
-npm run build
-npm run start:prod
-
-# Order Service
-cd backend/order-service
-npm run build
-npm run start:prod
+npm install
+npm run start:dev
 ```
 
-**Frontend:**
-```bash
+### Features:
+- Create product  
+- Update product  
+- Delete product  
+- Get all products  
+- Get product by ID  
+
+Data is stored using an in-memory array for simplicity.
+
+---
+
+## 2. Order Service (Port 3002)
+
+### Run:
+```
+cd backend/order-service
+npm install
+npm run start:dev
+```
+
+### Features:
+- Create order  
+- Update order  
+- Delete order  
+- Get all orders  
+- Get order by ID  
+
+This service communicates with the **Product Service** to:
+- Validate product existence  
+- Fetch product details  
+- Calculate total price (price × quantity)
+
+---
+
+# 🖥️ Frontend Setup (Next.js + Material UI)
+
+### Run:
+```
 cd frontend
-npm run build
-npm start
+npm install
+npm run dev
 ```
 
-## Testing
+### Features:
+- Dynamic signup form generated from a JSON configuration  
+- Supports TEXT, LIST, and RADIO field types  
+- Validations via React Hook Form  
+- Form submission stored in localStorage  
 
-### Backend Tests
-```bash
-# Product Service
-cd backend/product-service
-npm run test
+The UI updates automatically when the JSON schema is modified.
 
-# Order Service
-cd backend/order-service
-npm run test
+---
+
+# 📄 JSON Schema
+
+Schema file:
+```
+frontend/config/formSchema.json
 ```
 
-## Technologies
+This controls:
+- Field labels  
+- Field types  
+- Required/optional  
+- Min/max length  
+- Dropdown and radio options  
 
-### Backend
-- Nest.js
-- TypeORM
-- SQLite
-- TypeScript
-- class-validator
-- class-transformer
+---
+
+# ▶️ How to Test
+
+### Product Service
+- `POST /products` → create product  
+- `GET /products` → fetch all products  
+
+### Order Service
+- `POST /orders` → requires valid productId  
+- Total price = product price × quantity  
+- `GET /orders` → returns orders with full product details  
 
 ### Frontend
-- Next.js 14
-- React 18
-- TypeScript
-- Material UI (MUI)
-- React Hook Form
-- Emotion (CSS-in-JS)
+- Open: `http://localhost:3000`  
+- Fill the dynamic form  
+- Submitted data is stored in localStorage  
 
-## Notes
+---
 
-- Both backend services use SQLite for simplicity. For production, consider PostgreSQL or MySQL.
-- CORS is enabled on both services. Configure specific origins for production.
-- Form data is stored in browser localStorage. For production, consider backend storage.
-- All code is production-ready with proper error handling, validation, and type safety.
+# ✔️ Notes
 
-## License
+- No database is used; both services use in-memory storage.
+- Services communicate using REST.
+- Code is kept clean and minimal as required for the assignment.
 
-MIT
+---
 
+# 🙌 Thank You
+
+This completes the assignment.  
+I am available for a walkthrough if needed.
